@@ -32,8 +32,8 @@ namespace SIKtec {
         #define ROTARY_RANGE_DEFAULT {0,250,1}  
     #endif
     #ifndef ROTARY_COUNTER_TYPE
-        // default counter type −32,768 to 32,767
-        #define ROTARY_COUNTER_TYPE volatile int8_t 
+        // default counter type
+        #define ROTARY_COUNTER_TYPE volatile int32_t 
     #endif
 
     /***************************************************************************/
