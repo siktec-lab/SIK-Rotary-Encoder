@@ -5,7 +5,7 @@
 // Copyright 2021, SIKTEC / SIKDEV.
 /******************************************************************************/
 
-#include "sikrot_arduino.h"
+#include "SIKTEC_Rotary.h"
 
 namespace SIKtec {
     /*
