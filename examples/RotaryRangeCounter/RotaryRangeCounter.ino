@@ -30,7 +30,7 @@ SIKtec::Rotary rotary = SIKtec::Rotary(
     ROTARY_ENCODER_A_PIN, 
     ROTARY_ENCODER_B_PIN, 
     ROTARY_ENCODER_BUTTON_PIN,
-    false, 
+    false, // Circular mode? -> infinite loop counting.
     {IntervalLimits::MIN, IntervalLimits::MAX, IntervalLimits::STEP}
 );
 
@@ -45,11 +45,7 @@ ISR (PCINT2_vect)
         Serial.println("Rotary Push Button ISR");
         rotary.lastDebounceTime = millis();
         SIKtec::RotaryState currnet = rotary.readState();
-        if (IntervalLimits::MAX - currnet.pos > currnet.pos - IntervalLimits::MIN) {
-            rotary.setPos(IntervalLimits::MAX);
-        } else {
-            rotary.setPos(IntervalLimits::MIN);
-        }
+        customCallback(currnet);
         sei();
     }
 }
@@ -59,7 +55,7 @@ ISR (PCINT2_vect)
     @param  state the current state of the rotary encoder 
 */
 void customCallback(SIKtec::RotaryState state) {
-    Serial.println(F(" Rotary State -> Delta: "));
+    Serial.print(F("Rotary State -> Delta: "));
     Serial.print(state.delta);
     Serial.print(F(" Previous: "));
     Serial.print(state.prev);
@@ -97,6 +93,6 @@ void loop() {
     if (rotary.changed) {
         //Update current interval which is the rotary position
         interval = rotary.readState(); 
-	Serial.print(F("doing someting from main loop - After Rotary changed"));
+	Serial.println(F("doing someting from main loop - After Rotary changed"));
     }
 }
