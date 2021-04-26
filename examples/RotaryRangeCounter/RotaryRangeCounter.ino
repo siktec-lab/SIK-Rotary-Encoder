@@ -1,11 +1,8 @@
 /*
-  Blink
-  Turns on an LED on for one second, then off for one second, repeatedly.
- 
-  This example code is in the public domain.
+  Rotary encoder - Counting inside a range 
+  Output position ad more usefull information to the Serial monitor
  */
 #include <Arduino.h>
-#include <SPI.h>
 #include <SIKTEC_Rotary.h>
 
 //Define base values: 
@@ -62,14 +59,12 @@ ISR (PCINT2_vect)
     @param  state the current state of the rotary encoder 
 */
 void customCallback(SIKtec::RotaryState state) {
-    if (CONT_OUTPUT_SERIAL) {
-        Serial.println(F(" Rotary State -> Delta: "));
-        Serial.print(state.delta);
-        Serial.print(F(" Previous: "));
-        Serial.print(state.prev);
-        Serial.print(F(" Current: "));
-        Serial.println(state.pos);
-    }
+    Serial.println(F(" Rotary State -> Delta: "));
+    Serial.print(state.delta);
+    Serial.print(F(" Previous: "));
+    Serial.print(state.prev);
+    Serial.print(F(" Current: "));
+    Serial.println(state.pos);
 }
 
 /***************************************************************************/
@@ -102,7 +97,6 @@ void loop() {
     if (rotary.changed) {
         //Update current interval which is the rotary position
         interval = rotary.readState(); 
-		Serial.print(F("doing someting from main loop - After Rotary changed"));
-        printCounter();
+	Serial.print(F("doing someting from main loop - After Rotary changed"));
     }
 }
