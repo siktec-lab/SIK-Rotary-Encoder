@@ -88,7 +88,7 @@ namespace SIKtec {
         if (pos <= this->range.max && pos >= this->range.min) {
             this->encoderPos = pos;
             this->encoderPosPrev = pos;
-            if (this->changed) this->changed = true;
+            if (this->enabled) this->changed = true;
         }
         sei();
         return this->encoderPos;
